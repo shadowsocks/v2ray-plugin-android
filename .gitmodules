@@ -1,0 +1,3 @@
+[submodule "app/src/v2ray-plugin"]
+	path = app/src/v2ray-plugin
+	url = https://github.com/madeye/v2ray-plugin

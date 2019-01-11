@@ -1,0 +1,87 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+import com.android.build.OutputFile
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+def getCurrentFlavor() {
+    String task = getGradle().getStartParameter().getTaskRequests().toString()
+    Matcher matcher = Pattern.compile("(assemble|generate)\\w*(Release|Debug)").matcher(task)
+    if (matcher.find()) return matcher.group(2).toLowerCase() else {
+        println "Warning: No match found for $task"
+        return "debug"
+    }
+}
+
+android {
+    buildToolsVersion "28.0.3"
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.github.shadowsocks.plugin.v2ray"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion 28
+        versionCode 1000000
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    splits {
+        abi {
+            enable true
+            universalApk true
+        }
+    }
+    sourceSets.main.jniLibs.srcDirs += new File(projectDir, "src/bin")
+}
+
+task goBuild(type: Exec) {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        println "Warning: Building on Windows is not supported"
+    } else {
+        executable "sh"
+        args "-c", "src/make.bash " + minSdkVersion
+    }
+}
+
+task goClean(type: Exec) {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        println "Warning: Building on Windows is not supported"
+    } else {
+        executable "sh"
+        args "-c", "src/clean.bash"
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if ((task.name == 'javaPreCompileDebug' ||
+            task.name == 'javaPreCompileRelease')) {
+        task.dependsOn(goBuild)
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation 'com.github.shadowsocks:plugin:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
+
+ext.abiCodes = ['armeabi-v7a': 1, 'arm64-v8a': 2, x86: 3, x86_64: 4]
+if (getCurrentFlavor() == 'release') android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        def offset = project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
+        if (offset != null) output.versionCodeOverride = variant.versionCode + offset
+    }
+}
