@@ -22,13 +22,10 @@
             </intent-filter>
             <meta-data android:name="com.github.shadowsocks.plugin.id"
                        android:value="v2ray"/>
-            <meta-data android:name="com.github.shadowsocks.plugin.default_config"
-                       android:value="host=test.example.com"/>
         </provider>
-        <activity android:name=".HelpCallback"
-                  android:theme="@style/Theme.AppCompat.Translucent">
+        <activity android:name=".ConfigActivity">
             <intent-filter>
-                <action android:name="com.github.shadowsocks.plugin.ACTION_HELP"/>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_CONFIGURE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:scheme="plugin"
                       android:host="com.github.shadowsocks"
