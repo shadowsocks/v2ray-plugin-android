@@ -39,8 +39,8 @@ This plugin is an official plugin thus you can see [shadowsocks-android](https:/
 
 ### LICENSE
 
-Copyright (C) 2017 by Max Lv <<max.c.lv@gmail.com>>  
-Copyright (C) 2017 by Mygod Studio <<contact-shadowsocks-android@mygod.be>>
+Copyright (C) 2019 by Max Lv <<max.c.lv@gmail.com>>  
+Copyright (C) 2019 by Mygod Studio <<contact-shadowsocks-android@mygod.be>>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

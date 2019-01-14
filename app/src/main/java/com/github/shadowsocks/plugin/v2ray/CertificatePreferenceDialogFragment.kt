@@ -20,20 +20,33 @@
 
 package com.github.shadowsocks.plugin.v2ray
 
-import android.net.Uri
-import android.os.ParcelFileDescriptor
-import com.github.shadowsocks.plugin.NativePluginProvider
-import com.github.shadowsocks.plugin.PathProvider
-import java.io.File
-import java.io.FileNotFoundException
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
+import androidx.preference.EditTextPreferenceDialogFragmentCompat
+import com.google.android.material.snackbar.Snackbar
 
-class BinaryProvider : NativePluginProvider() {
-    override fun populateFiles(provider: PathProvider) {
-        provider.addPath("v2ray", 0b111101101)
+class CertificatePreferenceDialogFragment : EditTextPreferenceDialogFragmentCompat() {
+    fun setKey(key: String) {
+        arguments = bundleOf(Pair(ARG_KEY, key))
     }
-    override fun getExecutable() = context!!.applicationInfo.nativeLibraryDir + "/libv2ray.so"
-    override fun openFile(uri: Uri?): ParcelFileDescriptor = when (uri?.path) {
-        "/v2ray" -> ParcelFileDescriptor.open(File(getExecutable()), ParcelFileDescriptor.MODE_READ_ONLY)
-        else -> throw FileNotFoundException()
+
+    override fun onPrepareDialogBuilder(builder: AlertDialog.Builder) {
+        super.onPrepareDialogBuilder(builder)
+        builder.setNeutralButton("Browse…") { _, _ ->
+            val activity = requireActivity()
+            try {
+                targetFragment!!.startActivityForResult(Intent(Intent.ACTION_GET_CONTENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "application/pkix-cert"
+                }, ConfigFragment.REQUEST_BROWSE_CERTIFICATE)
+                return@setNeutralButton
+            } catch (_: ActivityNotFoundException) { } catch (_: SecurityException) { }
+            Snackbar.make(activity.findViewById<View>(R.id.content),
+                    "Please install a file manager like MiXplorer",
+                    Snackbar.LENGTH_SHORT).show()
+        }
     }
 }
