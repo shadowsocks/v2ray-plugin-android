@@ -41,6 +41,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
     private val host by lazy { findPreference<EditTextPreference>("host") }
     private val path by lazy { findPreference<EditTextPreference>("path") }
     private val certRaw by lazy { findPreference<EditTextPreference>("certRaw") }
+    private val loglevel by lazy { findPreference<ListPreference>("loglevel") }
 
     private fun readMode(value: String = mode.value) = when (value) {
         "websocket-http" -> Pair(null, null)
@@ -59,6 +60,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         putWithDefault("host", host.text, "cloudfront.com")
         putWithDefault("path", path.text, "/")
         putWithDefault("certRaw", certRaw.text.replace("\n", ""), "")
+        putWithDefault("loglevel", loglevel.value, "warning")
     }
 
     fun onInitializePluginOptions(options: PluginOptions) {
@@ -70,6 +72,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         host.text = options["host"] ?: "cloudfront.com"
         path.text = options["path"] ?: "/"
         certRaw.text = options["certRaw"]
+        loglevel.value = options["loglevel"] ?: "warning"
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

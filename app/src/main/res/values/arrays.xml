@@ -5,4 +5,11 @@
         <item>websocket-tls</item>
         <item>quic-tls</item>
     </string-array>
+    <string-array name="loglevels">
+        <item>debug</item>
+        <item>info</item>
+        <item>warning</item>
+        <item>error</item>
+        <item>none</item>
+    </string-array>
 </resources>

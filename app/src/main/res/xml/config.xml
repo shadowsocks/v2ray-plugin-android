@@ -22,4 +22,14 @@
         app:persistent="false"
         app:title="Certificate for TLS verification"
         app:useSimpleSummaryProvider="true"/>
+    <PreferenceCategory
+        app:title="Debug">
+        <com.takisoft.preferencex.SimpleMenuPreference
+            app:key="loglevel"
+            app:persistent="false"
+            app:entries="@array/loglevels"
+            app:entryValues="@array/loglevels"
+            app:title="Logcat level"
+            app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
 </PreferenceScreen>
