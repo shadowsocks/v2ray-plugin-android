@@ -29,6 +29,7 @@
             app:persistent="false"
             app:entries="@array/loglevels"
             app:entryValues="@array/loglevels"
+            app:icon="@drawable/ic_action_bug_report"
             app:title="Logcat level"
             app:useSimpleSummaryProvider="true"/>
     </PreferenceCategory>
