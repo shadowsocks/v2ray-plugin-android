@@ -44,19 +44,19 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
     private val loglevel by lazy { findPreference<ListPreference>("loglevel") }
 
     private fun readMode(value: String = mode.value) = when (value) {
-        "websocket-http" -> Pair(null, null)
-        "websocket-tls" -> Pair(null, "")
-        "quic-tls" -> Pair("quic", null)
+        "websocket-http" -> Pair(null, false)
+        "websocket-tls" -> Pair(null, true)
+        "quic-tls" -> Pair("quic", false)
         else -> {
             check(false)
-            Pair(null, null)
+            Pair(null, false)
         }
     }
 
     val options get() = PluginOptions().apply {
         val (mode, tls) = readMode()
         putWithDefault("mode", mode)
-        putWithDefault("tls", tls)
+        if (tls) this["tls"] = null
         putWithDefault("host", host.text, "cloudfront.com")
         putWithDefault("path", path.text, "/")
         putWithDefault("certRaw", certRaw.text?.replace("\n", ""), "")
@@ -66,7 +66,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
     fun onInitializePluginOptions(options: PluginOptions) {
         mode.value = when {
             options["mode"] ?: "websocket" == "quic" -> "quic-tls"
-            options["tls"] != null -> "websocket-tls"
+            "tls" in options -> "websocket-tls"
             else -> "websocket-http"
         }.also { onPreferenceChange(null, it) }
         host.text = options["host"] ?: "cloudfront.com"
@@ -83,7 +83,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
         val (mode, tls) = readMode(newValue as String)
         path.isEnabled = mode == null
-        certRaw.isEnabled = mode != null || tls != null
+        certRaw.isEnabled = mode != null || tls
         return true
     }
 
