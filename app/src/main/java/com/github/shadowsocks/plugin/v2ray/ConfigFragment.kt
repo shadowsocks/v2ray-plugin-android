@@ -42,10 +42,6 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
     private val path by lazy { findPreference<EditTextPreference>("path") }
     private val certRaw by lazy { findPreference<EditTextPreference>("certRaw") }
 
-    // todo: remove me for updated plugin lib
-    private fun PluginOptions.putWithDefault(key: String, value: String?, default: String? = null) =
-            if (value == null || value == default) remove(key) else put(key, value)
-
     private fun readMode(value: String = mode.value) = when (value) {
         "websocket-http" -> Pair(null, null)
         "websocket-tls" -> Pair(null, "")
