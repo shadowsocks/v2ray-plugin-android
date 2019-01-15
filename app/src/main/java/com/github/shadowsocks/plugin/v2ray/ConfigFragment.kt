@@ -59,7 +59,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         putWithDefault("tls", tls)
         putWithDefault("host", host.text, "cloudfront.com")
         putWithDefault("path", path.text, "/")
-        putWithDefault("certRaw", certRaw.text.replace("\n", ""), "")
+        putWithDefault("certRaw", certRaw.text?.replace("\n", ""), "")
         putWithDefault("loglevel", loglevel.value, "warning")
     }
 
