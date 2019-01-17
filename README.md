@@ -20,8 +20,6 @@
 
 You can check whether the latest commit builds under UNIX environment by checking CI status.
 
-* Set environment variable `ANDROID_HOME` to `/path/to/android-sdk`
-* (optional) Set environment variable `ANDROID_NDK_HOME` to `/path/to/android-ndk` (default: `$ANDROID_HOME/ndk-bundle`)
 * Clone the repo using `git clone --recurse-submodules <repo>` or update submodules using `git submodule update --init --recursive`
 * Build it using Android Studio or gradle script
 

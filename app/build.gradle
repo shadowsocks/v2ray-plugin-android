@@ -50,6 +50,8 @@ task goBuild(type: Exec) {
     } else {
         executable "sh"
         args "-c", "src/make.bash " + minSdkVersion
+        environment "ANDROID_HOME", android.sdkDirectory
+        environment "ANDROID_NDK_HOME", android.ndkDirectory
     }
 }
 
