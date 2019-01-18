@@ -18,6 +18,11 @@
         app:title="Path"
         app:useSimpleSummaryProvider="true"/>
     <EditTextPreference
+        app:key="mux"
+        app:persistent="false"
+        app:title="Concurrent connections"
+        app:useSimpleSummaryProvider="true"/>
+    <EditTextPreference
         app:key="certRaw"
         app:persistent="false"
         app:title="Certificate for TLS verification"

@@ -23,6 +23,8 @@ package com.github.shadowsocks.plugin.v2ray
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.InputType
 import android.view.View
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
@@ -40,6 +42,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
     private val mode by lazy { findPreference<ListPreference>("mode") }
     private val host by lazy { findPreference<EditTextPreference>("host") }
     private val path by lazy { findPreference<EditTextPreference>("path") }
+    private val mux by lazy { findPreference<EditTextPreference>("mux") }
     private val certRaw by lazy { findPreference<EditTextPreference>("certRaw") }
     private val loglevel by lazy { findPreference<ListPreference>("loglevel") }
 
@@ -59,6 +62,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         if (tls) this["tls"] = null
         putWithDefault("host", host.text, "cloudfront.com")
         putWithDefault("path", path.text, "/")
+        putWithDefault("mux", mux.text, "1")
         putWithDefault("certRaw", certRaw.text?.replace("\n", ""), "")
         putWithDefault("loglevel", loglevel.value, "warning")
     }
@@ -71,6 +75,7 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         }.also { onPreferenceChange(null, it) }
         host.text = options["host"] ?: "cloudfront.com"
         path.text = options["path"] ?: "/"
+        mux.text = options["mux"] ?: "1"
         certRaw.text = options["certRaw"]
         loglevel.value = options["loglevel"] ?: "warning"
     }
@@ -78,11 +83,18 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.config)
         mode.onPreferenceChangeListener = this
+        host.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_VARIATION_URI }
+        path.setOnBindEditTextListener { it.inputType = InputType.TYPE_TEXT_VARIATION_URI }
+        mux.setOnBindEditTextListener {
+            it.inputType = InputType.TYPE_CLASS_NUMBER
+            it.filters = arrayOf(InputFilter.LengthFilter(4))
+        }
     }
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
         val (mode, tls) = readMode(newValue as String)
         path.isEnabled = mode == null
+        mux.isEnabled = mode == null
         certRaw.isEnabled = mode != null || tls
         return true
     }
