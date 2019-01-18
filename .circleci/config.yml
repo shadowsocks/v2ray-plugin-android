@@ -12,9 +12,15 @@ jobs:
       - run: git submodule update --init --recursive
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}
+      - restore_cache:
+          key: go
       - run:
           name: Run Build and Tests
           command: ./gradlew assembleDebug check
+      - save_cache:
+          paths:
+          - ~/go
+          key: go
       - save_cache:
           paths:
             - ~/.gradle

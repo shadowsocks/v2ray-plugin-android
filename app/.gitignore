@@ -3,7 +3,3 @@
 # no tests written yet
 /src/androidTest
 /src/test
-/src/bin
-/src/pkg
-/src/src
-/.deps

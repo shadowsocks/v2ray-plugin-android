@@ -41,15 +41,15 @@ android {
             universalApk true
         }
     }
-    sourceSets.main.jniLibs.srcDirs += new File(projectDir, "src/bin")
+    sourceSets.main.jniLibs.srcDirs += new File(projectDir, "build/go")
 }
 
 task goBuild(type: Exec) {
     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
         println "Warning: Building on Windows is not supported"
     } else {
-        executable "sh"
-        args "-c", "src/make.bash " + minSdkVersion
+        executable "/bin/bash"
+        args "go-build.bash", minSdkVersion
         environment "ANDROID_HOME", android.sdkDirectory
         environment "ANDROID_NDK_HOME", android.ndkDirectory
     }
