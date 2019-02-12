@@ -60,7 +60,10 @@ class ConfigActivity : ConfigurationActivity(), Toolbar.OnMenuItemClickListener 
     override fun onBackPressed() {
         if (child.options != oldOptions) AlertDialog.Builder(this).run {
             setTitle(R.string.unsaved_changes_prompt)
-            setPositiveButton(R.string.yes) { _, _ -> saveChanges(child.options) }
+            setPositiveButton(R.string.yes) { _, _ ->
+                saveChanges(child.options)
+                finish()
+            }
             setNegativeButton(R.string.no) { _, _ -> finish() }
             setNeutralButton(android.R.string.cancel, null)
             create()
