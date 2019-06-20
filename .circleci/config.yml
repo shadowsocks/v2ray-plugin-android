@@ -13,14 +13,14 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}
       - restore_cache:
-          key: go-{{ checksum "app/src/go/v2ray-plugin/go.sum" }}
+          key: go-{{ checksum "app/src/main/go/v2ray-plugin/go.sum" }}
       - run:
           name: Run Build and Tests
           command: ./gradlew assembleDebug check
       - save_cache:
           paths:
           - ~/go
-          key: go-{{ checksum "app/src/go/v2ray-plugin/go.sum" }}
+          key: go-{{ checksum "app/src/main/go/v2ray-plugin/go.sum" }}
       - save_cache:
           paths:
             - ~/.gradle
