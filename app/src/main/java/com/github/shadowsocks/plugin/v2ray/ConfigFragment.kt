@@ -39,12 +39,12 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         const val REQUEST_BROWSE_CERTIFICATE = 1
     }
 
-    private val mode by lazy { findPreference<ListPreference>("mode") }
-    private val host by lazy { findPreference<EditTextPreference>("host") }
-    private val path by lazy { findPreference<EditTextPreference>("path") }
-    private val mux by lazy { findPreference<EditTextPreference>("mux") }
-    private val certRaw by lazy { findPreference<EditTextPreference>("certRaw") }
-    private val loglevel by lazy { findPreference<ListPreference>("loglevel") }
+    private val mode by lazy { findPreference<ListPreference>("mode")!! }
+    private val host by lazy { findPreference<EditTextPreference>("host")!! }
+    private val path by lazy { findPreference<EditTextPreference>("path")!! }
+    private val mux by lazy { findPreference<EditTextPreference>("mux")!! }
+    private val certRaw by lazy { findPreference<EditTextPreference>("certRaw")!! }
+    private val loglevel by lazy { findPreference<ListPreference>("loglevel")!! }
 
     private fun readMode(value: String = mode.value) = when (value) {
         "websocket-http" -> Pair(null, false)
