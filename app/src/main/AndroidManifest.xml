@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.github.shadowsocks.plugin.v2ray">
+          package="com.github.shadowsocks.plugin.v2ray"
+          android:installLocation="internalOnly">
     <uses-feature android:name="android.hardware.touchscreen"
                   android:required="false"/>
     <application android:allowBackup="false"
+                 android:extractNativeLibs="true"
                  android:label="v2ray"
                  android:icon="@mipmap/ic_launcher">
         <provider android:name=".BinaryProvider"
