@@ -32,7 +32,7 @@ class BinaryProvider : NativePluginProvider() {
         provider.addPath("v2ray", 0b111101101)
     }
     override fun getExecutable() = context!!.applicationInfo.nativeLibraryDir + "/libv2ray.so"
-    override fun openFile(uri: Uri?): ParcelFileDescriptor = when (uri?.path) {
+    override fun openFile(uri: Uri): ParcelFileDescriptor = when (uri.path) {
         "/v2ray" -> ParcelFileDescriptor.open(File(getExecutable()), ParcelFileDescriptor.MODE_READ_ONLY)
         else -> throw FileNotFoundException()
     }

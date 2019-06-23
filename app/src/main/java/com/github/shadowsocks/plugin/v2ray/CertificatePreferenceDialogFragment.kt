@@ -22,7 +22,6 @@ package com.github.shadowsocks.plugin.v2ray
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.preference.EditTextPreferenceDialogFragmentCompat
@@ -35,7 +34,7 @@ class CertificatePreferenceDialogFragment : EditTextPreferenceDialogFragmentComp
 
     override fun onPrepareDialogBuilder(builder: AlertDialog.Builder) {
         super.onPrepareDialogBuilder(builder)
-        builder.setNeutralButton("Browse…") { _, _ ->
+        builder.setNeutralButton(R.string.browse) { _, _ ->
             val activity = requireActivity()
             try {
                 targetFragment!!.startActivityForResult(Intent(Intent.ACTION_GET_CONTENT).apply {
@@ -44,9 +43,8 @@ class CertificatePreferenceDialogFragment : EditTextPreferenceDialogFragmentComp
                 }, ConfigFragment.REQUEST_BROWSE_CERTIFICATE)
                 return@setNeutralButton
             } catch (_: ActivityNotFoundException) { } catch (_: SecurityException) { }
-            Snackbar.make(activity.findViewById<View>(R.id.content),
-                    "Please install a file manager like MiXplorer",
-                    Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(activity.findViewById(R.id.content), R.string.file_manager_missing, Snackbar.LENGTH_SHORT)
+                    .show()
         }
     }
 }

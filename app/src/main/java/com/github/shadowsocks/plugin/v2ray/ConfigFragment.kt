@@ -25,14 +25,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
-import android.view.View
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.github.shadowsocks.plugin.PluginOptions
 import com.google.android.material.snackbar.Snackbar
-import java.lang.RuntimeException
 
 class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
     companion object {
@@ -116,8 +114,8 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
                     certRaw.text = activity.contentResolver.openInputStream(data!!.data!!)!!
                             .bufferedReader().readText()
                 } catch (e: RuntimeException) {
-                    Snackbar.make(activity.findViewById<View>(R.id.content), e.localizedMessage, Snackbar.LENGTH_LONG)
-                            .show()
+                    Snackbar.make(activity.findViewById(R.id.content), e.localizedMessage ?: e.javaClass.name,
+                            Snackbar.LENGTH_LONG).show()
                 }
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
