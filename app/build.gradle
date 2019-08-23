@@ -63,7 +63,7 @@ tasks.whenTaskAdded { task ->
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.preference:preference:1.1.0-beta01"
+    implementation "androidx.preference:preference:1.1.0-rc01"
     implementation 'com.github.shadowsocks:plugin:1.3.0'
     implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
