@@ -25,6 +25,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
+import android.view.View
+import androidx.core.view.updatePadding
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -86,6 +88,13 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         mux.setOnBindEditTextListener {
             it.inputType = InputType.TYPE_CLASS_NUMBER
             it.filters = arrayOf(InputFilter.LengthFilter(4))
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listView.setOnApplyWindowInsetsListener { v, insets ->
+            insets.apply { v.updatePadding(bottom = systemWindowInsetBottom) }
         }
     }
 

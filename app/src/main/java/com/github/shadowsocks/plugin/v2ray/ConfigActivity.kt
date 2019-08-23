@@ -22,8 +22,10 @@ package com.github.shadowsocks.plugin.v2ray
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.updatePadding
 import com.github.shadowsocks.plugin.ConfigurationActivity
 import com.github.shadowsocks.plugin.PluginOptions
 
@@ -34,6 +36,15 @@ class ConfigActivity : ConfigurationActivity(), Toolbar.OnMenuItemClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        findViewById<View>(android.R.id.content).apply {
+            setOnApplyWindowInsetsListener { view, insets ->
+                view.updatePadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop,
+                        insets.systemWindowInsetRight)
+                @Suppress("DEPRECATION")
+                insets.replaceSystemWindowInsets(0, 0, 0, insets.systemWindowInsetBottom)
+            }
+            systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        }
         findViewById<Toolbar>(R.id.toolbar).apply {
             title = this@ConfigActivity.title
             setNavigationIcon(R.drawable.ic_navigation_close)
