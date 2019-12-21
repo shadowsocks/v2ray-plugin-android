@@ -1,0 +1,3 @@
+另一個基於 v2ray 的 Shadowsocks 的 SIP003 外掛程式。
+
+需安裝 Shadowsocks-android 才可使用。

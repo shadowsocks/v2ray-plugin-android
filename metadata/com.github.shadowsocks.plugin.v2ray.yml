@@ -1,0 +1,38 @@
+Categories:
+  - Connectivity
+  - Internet
+License: GPL-3.0-or-later
+SourceCode: https://github.com/shadowsocks/v2ray-plugin-android
+IssueTracker: https://github.com/shadowsocks/v2ray-plugin-android/issues
+
+AutoName: v2ray
+Summary: A SIP003 V2ray plugin
+Description: |-
+    Yet another SIP003 plugin for shadowsocks, based on v2ray.
+
+    Shadowsocks-android is required.
+
+RepoType: git
+Repo: https://github.com/shadowsocks/v2ray-plugin-android.git
+
+Builds:
+  - versionName: 1.3.0
+    versionCode: 1030000
+    commit: v1.3.0
+    submodules: true
+    sudo:
+      - apt-get update
+      - apt-get install -y golang-go
+    gradle:
+      - yes
+    output: app/build/outputs/apk/release/app-universal-release-unsigned.apk
+    ndk: r20b
+    gradleprops:
+      - android.enableJetifier=true
+      - android.enableR8.fullMode=true
+      - android.useAndroidX=true
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags ^v
+CurrentVersion: 1.3.0
+CurrentVersionCode: 1030000

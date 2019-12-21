@@ -1,0 +1,3 @@
+Yet another SIP003 plugin for shadowsocks, based on v2ray.
+
+Shadowsocks-android is required.
