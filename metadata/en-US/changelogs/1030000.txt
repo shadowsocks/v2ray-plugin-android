@@ -1,0 +1,3 @@
+* Update shadowsocks plugin to 1.3.0
+* Update v2ray-core to 4.19.1.
+* Built with go 1.13 (fix #6 and #7).
