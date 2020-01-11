@@ -7,7 +7,12 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/46b34df6fe624ef9a46507126f407880)](https://www.codacy.com/app/shadowsocks/v2ray-plugin-android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shadowsocks/v2ray-plugin-android&amp;utm_campaign=Badge_Grade)
 [![License](https://img.shields.io/github/license/shadowsocks/v2ray-plugin-android.svg)](https://github.com/shadowsocks/v2ray-plugin-android/blob/master/LICENSE)
 
-<a href="https://play.google.com/store/apps/details?id=com.github.shadowsocks.plugin.v2ray"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height="48"></a>
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="70">](https://f-droid.org/packages/com.github.shadowsocks.plugin.v2ray/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="70">](https://play.google.com/store/apps/details?id=com.github.shadowsocks.plugin.v2ray)
 
 ### PREREQUISITES
 
