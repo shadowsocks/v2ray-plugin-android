@@ -20,10 +20,18 @@
                 <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
                 <data android:scheme="plugin"
                       android:host="com.github.shadowsocks"
-                      android:pathPrefix="/v2ray"/>
+                      android:path="/v2ray"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <data android:scheme="plugin"
+                      android:host="com.github.shadowsocks"
+                      android:path="/v2ray-plugin"/>
             </intent-filter>
             <meta-data android:name="com.github.shadowsocks.plugin.id"
                        android:value="v2ray"/>
+            <meta-data android:name="com.github.shadowsocks.plugin.id.aliases"
+                       android:value="v2ray-plugin"/>
             <meta-data android:name="com.github.shadowsocks.plugin.executable_path"
                        android:value="libv2ray.so"/>
         </provider>
