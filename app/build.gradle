@@ -17,8 +17,15 @@ def getCurrentFlavor() {
     }
 }
 
+def javaVersion = JavaVersion.VERSION_1_8
+
 android {
     compileSdkVersion 29
+    compileOptions {
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+    kotlinOptions.jvmTarget = javaVersion
     defaultConfig {
         applicationId "com.github.shadowsocks.plugin.v2ray"
         minSdkVersion rootProject.minSdkVersion
