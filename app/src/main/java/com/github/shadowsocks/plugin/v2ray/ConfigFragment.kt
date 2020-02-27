@@ -123,7 +123,6 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
                     // we read all its content here to avoid content URL permission issues
                     certRaw.text = activity.contentResolver.openInputStream(data!!.data!!)!!
                             .bufferedReader().readText()
-
                 } catch (e: RuntimeException) {
                     Snackbar.make(activity.findViewById(R.id.content), e.localizedMessage ?: e.javaClass.name,
                             Snackbar.LENGTH_LONG).show()
