@@ -39,7 +39,7 @@ class CertificatePreferenceDialogFragment : EditTextPreferenceDialogFragmentComp
             try {
                 targetFragment!!.startActivityForResult(Intent(Intent.ACTION_GET_CONTENT).apply {
                     addCategory(Intent.CATEGORY_OPENABLE)
-                    type = "application/pkix-cert"
+                    type = "application/x-pem-file"
                 }, ConfigFragment.REQUEST_BROWSE_CERTIFICATE)
                 return@setNeutralButton
             } catch (_: ActivityNotFoundException) { } catch (_: SecurityException) { }
