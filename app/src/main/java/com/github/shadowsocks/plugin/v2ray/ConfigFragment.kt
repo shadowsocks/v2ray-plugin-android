@@ -69,10 +69,10 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
 
     fun onInitializePluginOptions(options: PluginOptions) {
         mode.value = when {
-            options["mode"] ?: "websocket" == "quic" -> "quic-tls"
+            (options["mode"] ?: "websocket") == "quic" -> "quic-tls"
             "tls" in options -> "websocket-tls"
             else -> "websocket-http"
-        }.also { onPreferenceChange(null, it) }
+        }.also { onModeChange(it) }
         host.text = options["host"] ?: "cloudfront.com"
         path.text = options["path"] ?: "/"
         mux.text = options["mux"] ?: "1"
@@ -98,15 +98,18 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         }
     }
 
-    override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
-        val (mode, tls) = readMode(newValue as String)
+    private fun onModeChange(modeValue: String) {
+        val (mode, tls) = readMode(modeValue)
         path.isEnabled = mode == null
         mux.isEnabled = mode == null
         certRaw.isEnabled = mode != null || tls
+    }
+    override fun onPreferenceChange(preference: Preference, newValue: Any?): Boolean {
+        onModeChange(newValue as String)
         return true
     }
 
-    override fun onDisplayPreferenceDialog(preference: Preference?) {
+    override fun onDisplayPreferenceDialog(preference: Preference) {
         if (preference == certRaw) CertificatePreferenceDialogFragment().apply {
             setKey(certRaw.key)
             setTargetFragment(this@ConfigFragment, 0)

@@ -25,6 +25,7 @@ import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.preference.EditTextPreferenceDialogFragmentCompat
+import com.github.shadowsocks.plugin.R
 import com.google.android.material.snackbar.Snackbar
 
 class CertificatePreferenceDialogFragment : EditTextPreferenceDialogFragmentCompat() {
