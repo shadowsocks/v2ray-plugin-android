@@ -22,7 +22,6 @@ package com.github.shadowsocks.plugin.v2ray
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.Insets
@@ -39,16 +38,14 @@ class ConfigActivity : ConfigurationActivity(), Toolbar.OnMenuItemClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<View>(android.R.id.content).let {
-            ViewCompat.setOnApplyWindowInsetsListener(it) { view, insets ->
-                val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
-                view.setPadding(statusBarInsets.left, statusBarInsets.top, statusBarInsets.right, statusBarInsets.bottom)
-                WindowInsetsCompat.Builder(insets).apply {
-                    setInsets(WindowInsetsCompat.Type.statusBars(), Insets.NONE)
-                }.build()
-            }
-            WindowCompat.setDecorFitsSystemWindows(window, false)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, insets ->
+            val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            view.setPadding(statusBarInsets.left, statusBarInsets.top, statusBarInsets.right, statusBarInsets.bottom)
+            WindowInsetsCompat.Builder(insets).apply {
+                setInsets(WindowInsetsCompat.Type.statusBars(), Insets.NONE)
+            }.build()
         }
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         findViewById<Toolbar>(com.github.shadowsocks.plugin.R.id.toolbar).apply {
             title = this@ConfigActivity.title
             setNavigationIcon(com.github.shadowsocks.plugin.R.drawable.ic_navigation_close)

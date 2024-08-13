@@ -5,8 +5,6 @@ plugins {
     kotlin("android")
 }
 
-val minsdk = 23
-
 android {
     val javaVersion = JavaVersion.VERSION_1_8
     compileSdk = 35
@@ -17,7 +15,7 @@ android {
     kotlinOptions.jvmTarget = javaVersion.toString()
     namespace = "com.github.shadowsocks.plugin.v2ray"
     defaultConfig {
-        minSdk = minsdk
+        minSdk = 23
         targetSdk = 35
         versionCode = 1030300
         versionName = "1.3.3"
@@ -46,7 +44,7 @@ tasks.register<Exec>("goBuild") {
         println("Warning: Building on Windows is not supported")
     } else {
         executable("/bin/bash")
-        args("go-build.bash", minsdk)
+        args("go-build.bash", android.defaultConfig.minSdk)
         environment("ANDROID_HOME", android.sdkDirectory)
         environment("ANDROID_NDK_HOME", android.ndkDirectory)
     }
