@@ -25,6 +25,8 @@ import android.text.InputFilter
 import android.text.InputType
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
@@ -88,8 +90,10 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listView.setOnApplyWindowInsetsListener { v, insets ->
-            insets.apply { v.updatePadding(bottom = systemWindowInsetBottom) }
+        ViewCompat.setOnApplyWindowInsetsListener(listView) { v, insets ->
+            insets.apply {
+                v.updatePadding(bottom = getInsets(WindowInsetsCompat.Type.navigationBars()).bottom)
+            }
         }
     }
 
