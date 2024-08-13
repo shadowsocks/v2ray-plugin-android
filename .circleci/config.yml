@@ -1,34 +1,36 @@
-version: 2
+version: 2.1
+
+orbs:
+  android: circleci/android@2.3.0
+
 jobs:
-  build:
-    working_directory: ~/code
-    docker:
-      - image: shadowsocks/android-ndk-go
-    environment:
-      JVM_OPTS: -Xmx3500m
-      GRADLE_OPTS: -Dorg.gradle.workers.max=1 -Dorg.gradle.daemon=false -Dkotlin.compiler.execution.strategy="in-process"
+  test:
+    executor:
+      name: android/android-docker
+      tag: 2024.08.1-ndk
+      resource-class: large
     steps:
       - checkout
       - run: git submodule update --init --recursive
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle.kts" }}
-      - restore_cache:
-          key: go-{{ checksum "app/src/main/go/v2ray-plugin/go.sum" }}
+      - android/restore-gradle-cache
+      - run:
+          name: Install Go
+          command: |
+            curl -sSL https://go.dev/dl/go1.22.6.linux-amd64.tar.gz -o go.tar.gz
+            sudo tar -C /usr/local -xzf go.tar.gz
+            echo 'export PATH=$PATH:/usr/local/go/bin' >> "$BASH_ENV"
       - run:
           name: Run Build and Tests
-          command: ./gradlew assembleDebug check
-      - save_cache:
-          paths:
-          - ~/go
-          key: go-{{ checksum "app/src/main/go/v2ray-plugin/go.sum" }}
-      - save_cache:
-          paths:
-            - ~/.gradle
-            - ~/.android/build-cache
-          key: jars-{{ checksum "build.gradle.kts" }}
+          command: ./gradlew assembleDebug check --no-daemon
+      - android/save-gradle-cache
       - store_artifacts:
-          path: app/build/outputs/apk
+          path: mobile/build/outputs/apk
           destination: apk
       - store_artifacts:
-          path: app/build/reports
+          path: mobile/build/reports
           destination: reports
+
+workflows:
+  test:
+    jobs:
+      - test
