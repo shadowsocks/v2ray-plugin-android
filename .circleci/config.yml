@@ -24,10 +24,10 @@ jobs:
           command: ./gradlew assembleDebug check --no-daemon
       - android/save-gradle-cache
       - store_artifacts:
-          path: mobile/build/outputs/apk
+          path: app/build/outputs/apk
           destination: apk
       - store_artifacts:
-          path: mobile/build/reports
+          path: app/build/reports
           destination: reports
 
 workflows:

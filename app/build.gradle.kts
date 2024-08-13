@@ -37,6 +37,7 @@ android {
         }
     }
     sourceSets.getByName("main").jniLibs.srcDirs(files("$projectDir/build/go"))
+    ndkVersion = "27.0.12077973"
     packagingOptions.jniLibs.useLegacyPackaging = true
 }
 
