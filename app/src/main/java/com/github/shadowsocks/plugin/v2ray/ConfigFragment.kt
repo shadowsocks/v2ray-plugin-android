@@ -20,12 +20,11 @@
 
 package com.github.shadowsocks.plugin.v2ray
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputType
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.updatePadding
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
@@ -35,10 +34,6 @@ import com.github.shadowsocks.plugin.PluginOptions
 import com.google.android.material.snackbar.Snackbar
 
 class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
-    companion object {
-        const val REQUEST_BROWSE_CERTIFICATE = 1
-    }
-
     private val mode by lazy { findPreference<ListPreference>("mode")!! }
     private val host by lazy { findPreference<EditTextPreference>("host")!! }
     private val path by lazy { findPreference<EditTextPreference>("path")!! }
@@ -113,24 +108,18 @@ class ConfigFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChange
         if (preference == certRaw) CertificatePreferenceDialogFragment().apply {
             setKey(certRaw.key)
             setTargetFragment(this@ConfigFragment, 0)
-        }.show(fragmentManager ?: return, certRaw.key) else super.onDisplayPreferenceDialog(preference)
+        }.show(parentFragmentManager, certRaw.key) else super.onDisplayPreferenceDialog(preference)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_BROWSE_CERTIFICATE -> {
-                if (resultCode != Activity.RESULT_OK) return
-                val activity = requireActivity()
-                try {
-                    // we read all its content here to avoid content URL permission issues
-                    certRaw.text = activity.contentResolver.openInputStream(data!!.data!!)!!
-                            .bufferedReader().readText()
-                } catch (e: RuntimeException) {
-                    Snackbar.make(activity.findViewById(R.id.content), e.localizedMessage ?: e.javaClass.name,
-                            Snackbar.LENGTH_LONG).show()
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
+    val browseCertificate = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
+        result ?: return@registerForActivityResult
+        val activity = requireActivity()
+        try {
+            // we read all its content here to avoid content URL permission issues
+            certRaw.text = activity.contentResolver.openInputStream(result)!!.bufferedReader().readText()
+        } catch (e: RuntimeException) {
+            Snackbar.make(activity.findViewById(R.id.content), e.localizedMessage ?: e.javaClass.name,
+                Snackbar.LENGTH_LONG).show()
         }
     }
 }
