@@ -35,7 +35,7 @@ android {
         }
     }
     sourceSets.getByName("main").jniLibs.srcDirs(files("$projectDir/build/go"))
-    ndkVersion = "27.0.12077973"
+    ndkVersion = "27.2.12479018"
     packagingOptions.jniLibs.useLegacyPackaging = true
 }
 
@@ -57,11 +57,11 @@ tasks.whenTaskAdded {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", rootProject.extra.get("kotlinVersion").toString()))
+    implementation(kotlin("stdlib-jdk8"))
     implementation("androidx.preference:preference:1.2.1")
     implementation("com.github.shadowsocks:plugin:2.0.1")
     implementation("com.takisoft.preferencex:preferencex-simplemenu:1.1.0")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.6.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
