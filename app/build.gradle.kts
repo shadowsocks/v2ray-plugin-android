@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    val javaVersion = JavaVersion.VERSION_1_8
+    val javaVersion = JavaVersion.VERSION_17
     compileSdk = 35
     compileOptions {
         sourceCompatibility = javaVersion
@@ -15,11 +15,11 @@ android {
     kotlinOptions.jvmTarget = javaVersion.toString()
     namespace = "com.github.shadowsocks.plugin.v2ray"
     defaultConfig {
-        minSdk = 23
+        minSdk = 26
         targetSdk = 35
-        versionCode = 1030300
-        versionName = "1.3.3"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        versionCode = 1030500
+        versionName = "1.3.5"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         getByName("release") {
@@ -37,6 +37,11 @@ android {
     sourceSets.getByName("main").jniLibs.srcDirs(files("$projectDir/build/go"))
     ndkVersion = "27.2.12479018"
     packagingOptions.jniLibs.useLegacyPackaging = true
+    externalNativeBuild {
+        ndkBuild {
+            ndkVersion = "27.2.12479018"
+        }
+    }
 }
 
 tasks.register<Exec>("goBuild") {
@@ -62,6 +67,6 @@ dependencies {
     implementation("com.github.shadowsocks:plugin:2.0.1")
     implementation("com.takisoft.preferencex:preferencex-simplemenu:1.1.0")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.6.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test:runner:1.7.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
 }
