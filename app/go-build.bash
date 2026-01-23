@@ -20,6 +20,7 @@ for i in "${!ABIS[@]}"; do
     && env \
         CGO_ENABLED=1 CC="${TOOLCHAIN}/${CLANG_ARCHS[$i]}${MIN_API}-clang" \
         GOOS=android GOARCH=${GO_ARCHS[$i]} \
+        GOFLAGS="-mod=mod" \
         go build -v -ldflags='-s -w' -o "${OUT_DIR}/unstripped" \
     && "${TOOLCHAIN}/llvm-strip" "${OUT_DIR}/unstripped" -o "${OUT_DIR}/${ABI}/${BIN}" \
     || exit -1
