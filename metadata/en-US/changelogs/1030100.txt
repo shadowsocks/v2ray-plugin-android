@@ -1,0 +1,3 @@
+* Make v2ray-plugin the default plugin ID (with a v2ray-plugin alias).
+* Implement immersive theme.
+* Update bundled v2ray-plugin and dependencies.
