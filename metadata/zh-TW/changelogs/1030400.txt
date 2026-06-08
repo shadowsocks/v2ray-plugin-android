@@ -1,0 +1,4 @@
+* 改用 AndroidX activity result API。
+* 更新 VPN 服務旗標處理。
+* 修正棄用警告與多項錯誤。
+* 更新內建的 v2ray-plugin 及相依套件。

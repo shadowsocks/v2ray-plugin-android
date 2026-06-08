@@ -1,0 +1,4 @@
+* Migrate to the AndroidX activity result API.
+* Update VPN service flag handling.
+* Fix deprecations and various bugs.
+* Update bundled v2ray-plugin and dependencies.
