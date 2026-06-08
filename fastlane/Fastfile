@@ -1,0 +1,19 @@
+default_platform(:android)
+
+platform :android do
+  # Sign the AAB with the shadowsocks upload key before running, e.g.:
+  #   fastlane android deploy track:production status:completed
+  # Defaults to the internal track as a draft when no options are given.
+  desc "Upload the signed release AAB to Google Play"
+  lane :deploy do |options|
+    upload_to_play_store(
+      track: options[:track] || "internal",
+      release_status: options[:status] || "draft",
+      aab: "app/build/outputs/bundle/release/v2ray-plugin-1.3.4.aab",
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+end
