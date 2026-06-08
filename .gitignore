@@ -9,3 +9,5 @@
 /build
 /captures
 .externalNativeBuild
+/fastlane/play-store-key.json
+/fastlane/report.xml

@@ -1,0 +1,3 @@
+* 將 v2ray-plugin 設為預設外掛程式 ID（並新增 v2ray-plugin 別名）。
+* 實作沉浸式主題。
+* 更新內建的 v2ray-plugin 及相依套件。
