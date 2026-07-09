@@ -1,6 +1,6 @@
 ## [v2ray-plugin](https://github.com/shadowsocks/v2ray-plugin) for [shadowsocks-android](https://github.com/shadowsocks/shadowsocks-android)
 
-[![CircleCI](https://circleci.com/gh/shadowsocks/v2ray-plugin-android.svg?style=svg)](https://circleci.com/gh/shadowsocks/v2ray-plugin-android)
+[![CI](https://github.com/shadowsocks/v2ray-plugin-android/actions/workflows/ci.yml/badge.svg)](https://github.com/shadowsocks/v2ray-plugin-android/actions/workflows/ci.yml)
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![Releases](https://img.shields.io/github/downloads/shadowsocks/v2ray-plugin-android/total.svg)](https://github.com/shadowsocks/v2ray-plugin-android/releases)
 [![Language: Kotlin](https://img.shields.io/github/languages/top/shadowsocks/v2ray-plugin-android.svg)](https://github.com/shadowsocks/v2ray-plugin-android/search?l=kotlin)
